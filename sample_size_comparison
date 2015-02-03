@@ -1,0 +1,68 @@
+###############################
+##Simulating		             ##
+###############################
+
+rbi<-rbinom(100000,50,0.1)
+
+###############################
+##Deriving Statistics 1      ##
+###############################
+m1<-50*0.1
+X2_stat<-(rbi-m1)*(rbi-m1)/m1 + (rbi-m1)*(rbi-m1)/(50-m1)
+mean_X2_stat <- sum(X2_stat)/10000
+sd_X2_stat <- sqrt(var(X2_stat))
+
+###############################
+##Deriving Statistics 2      ##
+###############################
+G2_stat<- 2 * (rbi * log(rbi/m1)+(50-rbi) * log((50-rbi)/(50-m1)))
+mean_G2_stat <- sum(G2_stat)/100000
+is.na(mean_G2_stat)
+G2_stat[is.na(G2_stat)]<- 0
+mean_G2_stat <- sum(G2_stat)/100000
+is.na(mean_G2_stat)
+sd_G2_stat <- sqrt(var(G2_stat))
+
+###############################
+##Plotting for n=50	         ##
+###############################
+par(mfrow =c(2,2)) 
+rchi<-rchisq(100000,1)
+qqplot(X2_stat,rchi)
+abline(0,1)
+qqplot(G2_stat,rchi)
+abline(0,1)
+
+###############################
+##Larger n=500 now  		     ##
+###############################
+rbi<-rbinom(100000,500,0.1)
+
+###############################
+##Deriving Statistics 1      ##
+###############################
+m1<-500*0.1
+X2_stat<-(rbi-m1)*(rbi-m1)/m1 + (rbi-m1)*(rbi-m1)/(500-m1)
+mean_X2_stat <- sum(X2_stat)/10000
+sd_X2_stat <- sqrt(var(X2_stat))
+
+###############################
+##Deriving Statistics 2      ##
+###############################
+G2_stat<- 2 * (rbi * log(rbi/m1)+(500-rbi) * log((500-rbi)/(500-m1)))
+mean_G2_stat <- sum(G2_stat)/100000
+is.na(mean_G2_stat)
+G2_stat[is.na(G2_stat)]<- 0
+mean_G2_stat <- sum(G2_stat)/100000
+is.na(mean_G2_stat)
+sd_G2_stat <- sqrt(var(G2_stat))
+
+###############################
+##Plotting for n=500	       ##
+###############################
+rchi<-rchisq(100000,1)
+qqplot(X2_stat,rchi)
+abline(0,1)
+qqplot(G2_stat,rchi)
+abline(0,1)
+
